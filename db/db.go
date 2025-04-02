@@ -20,7 +20,7 @@ func GetValue(hash string) (string, bool) {
 }
 
 func SetValue(url string) string {
-	hash := GenerateHash(url)
+	hash := generateHash(url)
 
 	hashToUrlMap[hash] = url
 
@@ -29,11 +29,15 @@ func SetValue(url string) string {
 	return hash
 }
 
-func GenerateHash(url string) string {
+func generateHash(url string) string {
 	hasher := sha256.New()
 
 	hasher.Write([]byte(url))
 	hashBytes := hasher.Sum(nil)
 
 	return hex.EncodeToString(hashBytes)
+}
+
+func GetCount() int {
+	return len(hashToUrlMap)
 }
