@@ -13,9 +13,13 @@
   <main class="main">
     <div class="shortened-count">URLs Shortened: {{ .shortenedCount }}</div>
     <form onsubmit="onFormSubmit(event)" class="submit-url-form">
-      <div>
-        <input name="url" type="url" placeholder="URL" required>
-      </div>
+      <input
+        name="url"
+        type="url"
+        placeholder="URL"
+        required
+        class="url-input"
+      >
       <button type="submit" class="submit-btn">Submit</button>
       <div id="hash-label" class="hash-label" />
     </form>
