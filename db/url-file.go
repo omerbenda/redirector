@@ -4,9 +4,15 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"sync"
 )
 
+var lock = &sync.Mutex{}
+
 func readUrlFile(fileName string) map[string]string {
+	lock.Lock()
+	defer lock.Unlock()
+
 	fileUrlMap := make(map[string]string)
 	_, err := os.Stat(fileName)
 
@@ -36,6 +42,9 @@ func readUrlFile(fileName string) map[string]string {
 }
 
 func WriteMapToFile(fileName string, urlHashMap map[string]string) {
+	lock.Lock()
+	defer lock.Unlock()
+
 	file, err := os.Create(fileName)
 
 	if err != nil {
