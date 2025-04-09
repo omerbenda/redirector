@@ -9,13 +9,13 @@ async function onFormSubmit(e) {
     method: 'POST',
   });
 
-  const hash = await response.text();
+  const id = await response.text();
 
-  setUrlHash(hash);
+  setUrlId(id);
 }
 
-function setUrlHash(hash) {
-  const hashLabel = document.getElementById('hash-label');
+function setUrlId(id) {
+  const idLabel = document.getElementById('id-label');
 
-  hashLabel.textContent = `${window.location.origin}/${hash}`;
+  idLabel.textContent = `${window.location.origin}/${id}`;
 }

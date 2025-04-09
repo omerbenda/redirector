@@ -26,8 +26,8 @@ func main() {
 		)
 	})
 
-	r.GET(":hash", func(c *gin.Context) {
-		url, ok := db.GetValue(c.Param("hash"))
+	r.GET(":id", func(c *gin.Context) {
+		url, ok := db.GetValue(c.Param("id"))
 
 		if ok {
 			c.Redirect(http.StatusPermanentRedirect, url)
@@ -37,9 +37,9 @@ func main() {
 	})
 
 	r.POST("", func(c *gin.Context) {
-		hash := db.SetValue(c.Query("url"))
+		id := db.SetValue(c.Query("url"))
 
-		c.String(http.StatusOK, hash)
+		c.String(http.StatusOK, id)
 	})
 
 	r.Run()

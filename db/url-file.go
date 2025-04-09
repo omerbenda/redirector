@@ -41,7 +41,7 @@ func readUrlFile(fileName string) map[string]string {
 	return fileUrlMap
 }
 
-func WriteMapToFile(fileName string, urlHashMap map[string]string) {
+func WriteMapToFile(fileName string, urlIdMap map[string]string) {
 	lock.Lock()
 	defer lock.Unlock()
 
@@ -54,7 +54,7 @@ func WriteMapToFile(fileName string, urlHashMap map[string]string) {
 	defer file.Close()
 
 	encoder := json.NewEncoder(file)
-	err = encoder.Encode(urlHashMap)
+	err = encoder.Encode(urlIdMap)
 
 	if err != nil {
 		log.Fatal(err)

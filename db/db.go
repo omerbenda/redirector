@@ -1,43 +1,38 @@
 package db
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
+	"github.com/omerbenda/redirector/id"
 )
 
 const DB_FILE_NAME = "./urls.json"
+const ID_LENGTH = 25
 
-var hashToUrlMap map[string]string
+var UrlIdMap map[string]string
 
 func Read() {
-	hashToUrlMap = readUrlFile(DB_FILE_NAME)
+	UrlIdMap = readUrlFile(DB_FILE_NAME)
 }
 
-func GetValue(hash string) (string, bool) {
-	url, ok := hashToUrlMap[hash]
+func GetValue(urlId string) (string, bool) {
+	url, ok := UrlIdMap[urlId]
 
 	return url, ok
 }
 
 func SetValue(url string) string {
-	hash := generateHash(url)
+	urlId := id.GenerateId(ID_LENGTH)
 
-	hashToUrlMap[hash] = url
+	for _, ok := UrlIdMap[urlId]; ok; {
+		urlId = id.GenerateId(ID_LENGTH)
+	}
 
-	WriteMapToFile(DB_FILE_NAME, hashToUrlMap)
+	UrlIdMap[urlId] = url
 
-	return hash
-}
+	WriteMapToFile(DB_FILE_NAME, UrlIdMap)
 
-func generateHash(url string) string {
-	hasher := sha256.New()
-
-	hasher.Write([]byte(url))
-	hashBytes := hasher.Sum(nil)
-
-	return hex.EncodeToString(hashBytes)
+	return urlId
 }
 
 func GetCount() int {
-	return len(hashToUrlMap)
+	return len(UrlIdMap)
 }
