@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirector</title>
+  <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header-title">Redirector</h1>
+  </header>
+  <main class="main">
+    <div class="shortened-count">URLs Shortened: {{ .shortenedCount }}</div>
+    <form onsubmit="onFormSubmit(event)" class="submit-url-form">
+      <input
+        name="url"
+        type="url"
+        placeholder="URL"
+        required
+        class="url-input"
+      >
+      <button type="submit" class="submit-btn">Submit</button>
+      <div id="id-label" class="id-label" />
+    </form>
+  </main>
+
+  <script src="/static/index.js"></script>
+</body>
+</html>
