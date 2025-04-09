@@ -48,7 +48,7 @@ func WriteMapToFile(fileName string, urlIdMap map[string]string) {
 	file, err := os.Create(fileName)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	defer file.Close()
@@ -57,6 +57,6 @@ func WriteMapToFile(fileName string, urlIdMap map[string]string) {
 	err = encoder.Encode(urlIdMap)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 }

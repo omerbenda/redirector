@@ -17,5 +17,7 @@ async function onFormSubmit(e) {
 function setUrlId(id) {
   const idLabel = document.getElementById('id-label');
 
-  idLabel.textContent = `${window.location.origin}/${id}`;
+  const href = `${window.location.origin}/${id}`;
+  idLabel.href = href;
+  idLabel.textContent = href;
 }
