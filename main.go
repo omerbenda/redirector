@@ -31,8 +31,10 @@ func main() {
 
 	r := gin.Default()
 
+	log.Println("Loading templates")
 	r.LoadHTMLGlob("templates/*")
 
+	log.Println("Loading static files")
 	r.Static("/static", "./static")
 
 	r.GET("", func(c *gin.Context) {
