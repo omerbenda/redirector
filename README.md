@@ -14,6 +14,8 @@ Redirector allows you to convert a URL to a shorter URL, simply input a URL and 
 
 Using the binary file will open a server, the port used will be printed to the terminal
 
+**IMPORTANT** - The `static` and `templates` folders have to be in the same directory as the binary
+
 ## Compiling
 
 Run `go build .` on root directory
