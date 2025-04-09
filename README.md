@@ -2,6 +2,10 @@
 
 A URL shortener
 
+<p align="center">
+  <img src=https://github.com/user-attachments/assets/b19187a3-2ab5-4c0e-adf3-5944bcd4f784>
+</p>
+
 ## Usage
 
 Redirector allows you to convert a URL to a shorter URL, simply input a URL and a shortened URL will be provided to you
