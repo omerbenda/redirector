@@ -12,19 +12,24 @@
   </header>
   <main class="main">
     <div class="shortened-count">URLs Shortened: {{ .shortenedCount }}</div>
-    <form onsubmit="onFormSubmit(event)" class="submit-url-form">
+    <form onsubmit="onFormUrlSubmit(event)" class="submit-url-form">
       <input
         name="url"
         type="url"
         placeholder="URL"
         required
-        class="url-input"
+        class="form-input"
       >
       <button type="submit" class="submit-btn">Submit</button>
-      <a id="id-label" class="id-label" />
+      <a id="id-label" class="id-label"></a>
+    </form>
+    <form onsubmit="onFormUpdateUrlSubmit(event)" class="submit-url-form">
+      <input name="id" type="text" placeholder="ID" required class="form-input">
+      <input name="url" type="url" placeholder="URL" required class="form-input">
+      <button type="submit" class="submit-btn">Update</button>
+      <a id="update-status-label" class="id-label"></a>
     </form>
   </main>
-
   <script src="/static/index.js"></script>
 </body>
 </html>

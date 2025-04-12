@@ -33,6 +33,17 @@ func SetValue(url string) string {
 	return urlId
 }
 
+func UpdateValue(id string, url string) bool {
+	_, exists := UrlIdMap[id]
+
+	if exists {
+		UrlIdMap[id] = url
+		WriteMapToFile(DB_FILE_NAME, UrlIdMap)
+	}
+
+	return exists
+}
+
 func GetCount() int {
 	return len(UrlIdMap)
 }

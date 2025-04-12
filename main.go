@@ -63,5 +63,17 @@ func main() {
 		c.String(http.StatusOK, id)
 	})
 
+	r.PUT("", func(c *gin.Context) {
+		id := c.Query("id")
+		url := c.Query("url")
+		exists := db.UpdateValue(id, url)
+
+		if exists {
+			c.String(http.StatusOK, "Updated")
+		} else {
+			c.String(http.StatusNotFound, "Not Found")
+		}
+	})
+
 	r.Run()
 }
