@@ -8,16 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/omerbenda/redirector/db"
+	"github.com/omerbenda/redirector/handlers"
 )
-
-type CreateUrlRequestBody struct {
-	Url string
-}
-
-type UpdateUrlRequestBody struct {
-	Id  string
-	Url string
-}
 
 func main() {
 	logFile, err := os.OpenFile("log.txt", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
@@ -56,45 +48,9 @@ func main() {
 		)
 	})
 
-	r.GET(":id", func(c *gin.Context) {
-		url, ok := db.GetValue(c.Param("id"))
-
-		if ok {
-			c.Redirect(http.StatusPermanentRedirect, url)
-		} else {
-			c.Status(http.StatusNotFound)
-		}
-	})
-
-	r.POST("", func(c *gin.Context) {
-		var body CreateUrlRequestBody
-
-		if err := c.BindJSON(&body); err != nil {
-			log.Panic("Error binding JSON: ", err)
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read JSON"})
-		}
-
-		id := db.SetValue(body.Url)
-
-		c.String(http.StatusOK, id)
-	})
-
-	r.PUT("", func(c *gin.Context) {
-		var body UpdateUrlRequestBody
-
-		if err := c.BindJSON(&body); err != nil {
-			log.Panic("Error binding JSON: ", err)
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read JSON"})
-		}
-
-		exists := db.UpdateValue(body.Id, body.Url)
-
-		if exists {
-			c.String(http.StatusOK, "Updated")
-		} else {
-			c.String(http.StatusNotFound, "Not Found")
-		}
-	})
+	r.GET(":id", handlers.RedirectUrl)
+	r.POST("", handlers.AddUrl)
+	r.PUT("", handlers.UpdateUrl)
 
 	r.Run()
 }
