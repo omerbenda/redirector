@@ -10,6 +10,15 @@ import (
 	"github.com/omerbenda/redirector/db"
 )
 
+type CreateUrlRequestBody struct {
+	Url string
+}
+
+type UpdateUrlRequestBody struct {
+	Id  string
+	Url string
+}
+
 func main() {
 	logFile, err := os.OpenFile("log.txt", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 
@@ -58,15 +67,27 @@ func main() {
 	})
 
 	r.POST("", func(c *gin.Context) {
-		id := db.SetValue(c.Query("url"))
+		var body CreateUrlRequestBody
+
+		if err := c.BindJSON(&body); err != nil {
+			log.Panic("Error binding JSON: ", err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read JSON"})
+		}
+
+		id := db.SetValue(body.Url)
 
 		c.String(http.StatusOK, id)
 	})
 
 	r.PUT("", func(c *gin.Context) {
-		id := c.Query("id")
-		url := c.Query("url")
-		exists := db.UpdateValue(id, url)
+		var body UpdateUrlRequestBody
+
+		if err := c.BindJSON(&body); err != nil {
+			log.Panic("Error binding JSON: ", err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read JSON"})
+		}
+
+		exists := db.UpdateValue(body.Id, body.Url)
 
 		if exists {
 			c.String(http.StatusOK, "Updated")

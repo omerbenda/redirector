@@ -5,8 +5,12 @@ async function onFormUrlSubmit(e) {
 
   const url = formData.get('url');
 
-  const response = await fetch(`?url=${url}`, {
+  const response = await fetch('', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ url }),
   });
 
   const id = await response.text();
@@ -29,8 +33,12 @@ async function onFormUpdateUrlSubmit(e) {
   const id = formData.get('id');
   const url = formData.get('url');
 
-  const response = await fetch(`?id=${id}&url=${url}`, {
+  const response = await fetch('', {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id, url }),
   });
 
   const status = response.status;
