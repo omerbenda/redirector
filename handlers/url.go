@@ -48,10 +48,31 @@ func UpdateUrl(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read JSON"})
 	}
 
-	exists := db.UpdateValue(body.Id, body.Url)
+	exists := db.UpdateUrl(body.Id, body.Url)
 
 	if exists {
 		c.String(http.StatusOK, "Updated")
+	} else {
+		c.String(http.StatusNotFound, "Not Found")
+	}
+}
+
+type DeleteUrlRequestBody struct {
+	Id string
+}
+
+func DeleteUrl(c *gin.Context) {
+	var body UpdateUrlRequestBody
+
+	if err := c.BindJSON(&body); err != nil {
+		log.Panic("Error binding JSON: ", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read JSON"})
+	}
+
+	exists := db.DeleteUrl(body.Id)
+
+	if exists {
+		c.String(http.StatusOK, "Deleted")
 	} else {
 		c.String(http.StatusNotFound, "Not Found")
 	}

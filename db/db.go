@@ -33,11 +33,22 @@ func SetValue(url string) string {
 	return urlId
 }
 
-func UpdateValue(id string, url string) bool {
+func UpdateUrl(id string, url string) bool {
 	_, exists := UrlIdMap[id]
 
 	if exists {
 		UrlIdMap[id] = url
+		WriteMapToFile(DB_FILE_NAME, UrlIdMap)
+	}
+
+	return exists
+}
+
+func DeleteUrl(id string) bool {
+	_, exists := UrlIdMap[id]
+
+	if exists {
+		delete(UrlIdMap, id)
 		WriteMapToFile(DB_FILE_NAME, UrlIdMap)
 	}
 

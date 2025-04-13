@@ -47,7 +47,7 @@ async function onFormUpdateUrlSubmit(e) {
 }
 
 function setUpdateStatus(status) {
-  const statusLabel = document.getElementById('update-status-label');
+  const statusLabel = document.getElementById('update-label');
 
   switch (status) {
     case 200:
@@ -55,6 +55,39 @@ function setUpdateStatus(status) {
       break;
     default:
       statusLabel.textContent = 'Failed to update!';
+      break;
+  }
+}
+
+async function onFormDeleteUrlSubmit(e) {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+
+  const id = formData.get('id');
+
+  const response = await fetch('', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  });
+
+  const status = response.status;
+
+  setDeleteStatus(status);
+}
+
+function setDeleteStatus(status) {
+  const deleteLabel = document.getElementById('delete-label');
+
+  switch (status) {
+    case 200:
+      deleteLabel.textContent = 'Deleted successfully!';
+      break;
+    default:
+      deleteLabel.textContent = 'Failed to delete!';
       break;
   }
 }

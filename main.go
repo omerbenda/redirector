@@ -51,6 +51,7 @@ func main() {
 	r.GET(":id", handlers.RedirectUrl)
 	r.POST("", handlers.AddUrl)
 	r.PUT("", handlers.UpdateUrl)
+	r.DELETE("", handlers.DeleteUrl)
 
 	r.Run()
 }
