@@ -5,6 +5,7 @@ A URL shortener
 ## Usage
 
 Redirector allows you to convert a URL to a shorter URL, simply input a URL and a shortened URL will be provided to you
+
 You can update and delete the resulting URL by inputting the key ID
 
 <p align="center">
