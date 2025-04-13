@@ -12,7 +12,7 @@ func RedirectUrl(c *gin.Context) {
 	url, ok := db.GetValue(c.Param("id"))
 
 	if ok {
-		c.Redirect(http.StatusPermanentRedirect, url)
+		c.Redirect(http.StatusMovedPermanently, url)
 	} else {
 		c.Status(http.StatusNotFound)
 	}
