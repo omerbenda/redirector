@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/omerbenda/redirector/db"
+	"github.com/omerbenda/redirector/handlers"
 )
 
 func main() {
@@ -47,21 +48,10 @@ func main() {
 		)
 	})
 
-	r.GET(":id", func(c *gin.Context) {
-		url, ok := db.GetValue(c.Param("id"))
-
-		if ok {
-			c.Redirect(http.StatusPermanentRedirect, url)
-		} else {
-			c.Status(http.StatusNotFound)
-		}
-	})
-
-	r.POST("", func(c *gin.Context) {
-		id := db.SetValue(c.Query("url"))
-
-		c.String(http.StatusOK, id)
-	})
+	r.GET(":id", handlers.RedirectUrl)
+	r.POST("", handlers.AddUrl)
+	r.PUT("", handlers.UpdateUrl)
+	r.DELETE("", handlers.DeleteUrl)
 
 	r.Run()
 }
